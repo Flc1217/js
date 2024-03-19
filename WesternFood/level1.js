@@ -21,7 +21,10 @@ class level1 extends Phaser.Scene {
     this.load.image("miscimg", "assets/misc_atlas.png");
     this.load.image("pipoyaimg", "assets/pipoya.png");
 
-    this.load.image('checklist', 'assets/checklist.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.audio("collectmusic", "assets/collectmusic.wav");
+
+
+    this.load.image('checklistimg', 'assets/checklist.png', { frameWidth: 64, frameHeight: 64 });
 
 
     this.load.spritesheet('gen', 'assets/gen.png', { frameWidth: 64, frameHeight: 64 });
@@ -32,7 +35,8 @@ class level1 extends Phaser.Scene {
   create() {
     console.log("level1");
 
-
+    // this.checklist1 = this.sound.add("collectmusic");
+    this.checklist = this.sound.add("collectmusic");
 
     //Step 3 - Create the map from main
     let map = this.make.tilemap({ key: "level1" });
@@ -91,18 +95,15 @@ class level1 extends Phaser.Scene {
     let checklist4 = map.findObject("objectLayer", (obj) => obj.name === "checklist4");
 
     // Define your items with objectLayer
-    this.enemy1 = this.physics.add.sprite(checklist1.x, checklist1.y, "checklist")
-    this.enemy2 = this.physics.add.sprite(checklist2.x, checklist2.y, "checklist")
-    this.enemy3 = this.physics.add.sprite(checklist3.x, checklist3.y, "checklist")
-    this.enemy4 = this.physics.add.sprite(checklist4.x, checklist4.y, "checklist")
+    this.checklist1 = this.physics.add.sprite(checklist1.x, checklist1.y, "checklistimg")
+    this.checklist2 = this.physics.add.sprite(checklist2.x, checklist2.y, "checklistimg")
+    this.checklist3 = this.physics.add.sprite(checklist3.x, checklist3.y, "checklistimg")
+    this.checklist4 = this.physics.add.sprite(checklist4.x, checklist4.y, "checklistimg")
 
     // When object overlap with player, call the this.collectFire function
-    this.physics.add.overlap(this.player, this.enemy1, this.hitchecklist, null, this);
-    this.physics.add.overlap(this.player, this.enemy2, this.hitchecklist, null, this);
-    this.physics.add.overlap(this.player, this.enemy3, this.hitchecklist, null, this);
-    this.physics.add.overlap(this.player, this.enemy4, this.hitchecklist, null, this);
 
-    
+
+
     // create the arrow keys
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -211,6 +212,7 @@ class level1 extends Phaser.Scene {
 
     // camera follow player
     //this.cameras.main.startFollow(this.player);
+    this.physics.add.overlap(this.player, [this.checklist1, this.checklist2, this.checklist3, this.checklist4], this.collectchecklist, null, this);
   } /////////////////// end of create //////////////////////////////
 
   update() {
@@ -243,14 +245,22 @@ class level1 extends Phaser.Scene {
     }
   }
 
-  //call this function when overlap
-  //fruit//
-  hitchecklist(player, item) {
-    console.log("hitchecklist")
-    // this.camera.main.shake(500)// 500ms
-    //(player knockback) player.x = player.x - 50
-    item.disableBody(true, true)
+  collectchecklist(player, item) {
+    console.log("collectchecklist");
+    //this.cameras.main.shake(200);
+    window.checklist++
+    item.disableBody(true, true); // remove fire
+    return false;
 
+  }
+
+  // call this function when overlap
+  collectchecklist(player, item) {
+    console.log("collectchecklist")
+    this.checklist.play()
+    // this.cameras.main.shake(100) // 500ms
+    item.disableBody(true, true)
+    window.item1 = 1
     return false;
   }
 

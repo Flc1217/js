@@ -19,22 +19,29 @@ class level3 extends Phaser.Scene {
     this.load.image("miscimg", "assets/misc_atlas.png");
     this.load.image("pipoyaimg", "assets/pipoya.png");
 
-    this.load.image('trolley', 'assets/trolley.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.image('trolley2', 'assets/trolley2.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.image('food1', 'assets/food1.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.image('food2', 'assets/food2.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.image('food3', 'assets/food3.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.image('food4', 'assets/food4.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.image('food5', 'assets/food5.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.image('food6', 'assets/food6.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.image('heart', 'assets/heart.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.image('trolleyimg', 'assets/trolley.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.image('trolley2img', 'assets/trolley2.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.image('food1img', 'assets/food1.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.image('food2img', 'assets/food2.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.image('food3img', 'assets/food3.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.image('food4img', 'assets/food4.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.image('food5img', 'assets/food5.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.image('food6img', 'assets/food6.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.image('heartimg', 'assets/heart.png', { frameWidth: 64, frameHeight: 64 });
 
 
     this.load.spritesheet('gen', 'assets/gen.png', { frameWidth: 64, frameHeight: 64 });
+
+    this.load.audio("collectmusic", "assets/collectmusic.wav");
+
   }
 
   create() {
     console.log("level3");
+
+      // this.checklist1 = this.sound.add("collectmusic");
+      this.food = this.sound.add("collectmusic");
+      this.heart = this.sound.add("collectmusic");
 
     //Step 3 - Create the map from main
     let map = this.make.tilemap({ key: "level3" });
@@ -100,23 +107,23 @@ class level3 extends Phaser.Scene {
     let heart3 = map.findObject("objectLayer", (obj) => obj.name === "heart3");
 
     // Define your items with objectLayer
-    this.enemy1 = this.physics.add.sprite(trolley1.x, trolley1.y, "trolley2")
-    this.enemy2 = this.physics.add.sprite(trolley2.x, trolley2.y, "trolley2")
-    this.enemy3 = this.physics.add.sprite(trolley3.x, trolley3.y, "trolley")
-    this.enemy4 = this.physics.add.sprite(trolley4.x, trolley4.y, "trolley")
-    this.enemy5 = this.physics.add.sprite(trolley5.x, trolley5.y, "trolley")
-    this.enemy7 = this.physics.add.sprite(trolley6.x, trolley6.y, "trolley")
-    this.enemy7 = this.physics.add.sprite(trolley7.x, trolley7.y, "trolley")
-    this.enemy8 = this.physics.add.sprite(food1.x, food1.y, "food1")
-    this.enemy9 = this.physics.add.sprite(food2.x, food2.y, "food2")
-    this.enemy10 = this.physics.add.sprite(food3.x, food3.y, "food3")
-    this.enemy11 = this.physics.add.sprite(food4.x, food4.y, "food4")
-    this.enemy12 = this.physics.add.sprite(food5.x, food5.y, "food6")
-    this.enemy13 = this.physics.add.sprite(food6.x, food6.y, "food3")
-    this.enemy14 = this.physics.add.sprite(food7.x, food7.y, "food5")
-    this.enemy15 = this.physics.add.sprite(heart1.x, heart1.y, "heart")
-    this.enemy16 = this.physics.add.sprite(heart2.x, heart2.y, "heart")
-    this.enemy17 = this.physics.add.sprite(heart3.x, heart3.y, "heart")
+    this.trolley1 = this.physics.add.sprite(trolley1.x, trolley1.y, "trolley2img")
+    this.trolley2 = this.physics.add.sprite(trolley2.x, trolley2.y, "trolley2img")
+    this.trolley3 = this.physics.add.sprite(trolley3.x, trolley3.y, "trolleyimg")
+    this.trolley4 = this.physics.add.sprite(trolley4.x, trolley4.y, "trolleyimg")
+    this.trolley5 = this.physics.add.sprite(trolley5.x, trolley5.y, "trolleyimg")
+    this.trolley6 = this.physics.add.sprite(trolley6.x, trolley6.y, "trolleyimg")
+    this.trolley7 = this.physics.add.sprite(trolley7.x, trolley7.y, "trolleyimg")
+    this.food1 = this.physics.add.sprite(food1.x, food1.y, "food1img")
+    this.food2 = this.physics.add.sprite(food2.x, food2.y, "food2img")
+    this.food3 = this.physics.add.sprite(food3.x, food3.y, "food3img")
+    this.food4 = this.physics.add.sprite(food4.x, food4.y, "food4img")
+    this.food5 = this.physics.add.sprite(food5.x, food5.y, "food6img")
+    this.food6 = this.physics.add.sprite(food6.x, food6.y, "food3img")
+    this.food7 = this.physics.add.sprite(food7.x, food7.y, "food5img")
+    this.heart1 = this.physics.add.sprite(heart1.x, heart1.y, "heartimg")
+    this.heart2 = this.physics.add.sprite(heart2.x, heart2.y, "heartimg")
+    this.heart3 = this.physics.add.sprite(heart3.x, heart3.y, "heartimg")
 
     // create the arrow keys
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -188,6 +195,8 @@ class level3 extends Phaser.Scene {
 
 
     // camera follow player
+    this.physics.add.overlap(this.player, [this.food1, this.food2, this.food3,this.food4,this.food5,this.food6,this.food7], this.collectfood, null, this);
+    this.physics.add.overlap(this.player, [this.heart1, this.heart2, this.heart3], this.collectheart, null, this);
     //this.cameras.main.startFollow(this.player);
   } /////////////////// end of create //////////////////////////////
 
@@ -222,6 +231,46 @@ class level3 extends Phaser.Scene {
   }
 
   //update() {} /////////////////// end of update //////////////////////////////
+  collectfood(player, item) {
+    console.log("collectfood");
+    //this.cameras.main.shake(200);
+    window.food++
+    item.disableBody(true, true); // remove food
+    return false;
+
+  }
+
+
+
+collectheart(player, item) {
+  console.log("collectheart");
+  //this.cameras.main.shake(200);
+  window.fish++
+  item.disableBody(true, true); // remove heart
+  return false;
+
+}
+
+
+// call this function when overlap
+collectfood(player, item) {
+  console.log("collectfood")
+  this.food.play()
+  // this.cameras.main.shake(50) // 500ms
+  item.disableBody(true, true)
+  window.item1 = 1
+  return false;
+}
+
+  collectheart(player, item) {
+    console.log("collectheart")
+    this.heart.play()
+    // this.cameras.main.shake(50) // 500ms
+    item.disableBody(true, true)
+    window.item1 = 1
+    return false;
+  }
+
   // Function to jump to room1
   level4(player, tile) {
     console.log("level4 function");

@@ -19,16 +19,26 @@ class level2 extends Phaser.Scene {
     this.load.image("miscimg", "assets/misc_atlas.png");
     this.load.image("pipoyaimg", "assets/pipoya.png");
 
-    this.load.image('trolley', 'assets/trolley.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.image('chicken', 'assets/chicken.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.image('fish', 'assets/fish.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.image('heart', 'assets/heart.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.image('trolleyimg', 'assets/trolley.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.image('chickenimg', 'assets/chicken.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.image('fishimg', 'assets/fish.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.image('heartimg', 'assets/heart.png', { frameWidth: 64, frameHeight: 64 });
 
     this.load.spritesheet('gen', 'assets/gen.png', { frameWidth: 64, frameHeight: 64 });
+
+    this.load.audio("collectmusic", "assets/collectmusic.wav");
+
   }
 
   create() {
     console.log("level2");
+
+      // this.checklist1 = this.sound.add("collectmusic");
+      this.chicken = this.sound.add("collectmusic");
+      this.fish = this.sound.add("collectmusic");
+      this.heart = this.sound.add("collectmusic");
+
+
 
     //Step 3 - Create the map from main
     let map = this.make.tilemap({ key: "level2" });
@@ -61,7 +71,7 @@ class level2 extends Phaser.Scene {
     this.StoreLayer = map.createLayer("Store", tilesArray, 0, 0);
     this.Store2Layer = map.createLayer("Store2", tilesArray, 0, 0);
     this.Store3Layer = map.createLayer("Store3", tilesArray, 0, 0);
-   
+
 
     // Add main player here with physics.add.sprite
 
@@ -75,27 +85,27 @@ class level2 extends Phaser.Scene {
     // What will collider witg what layers
     //this.physics.add.collider(mapLayer, this.player);
 
-// load checklist layer
-let trolley1 = map.findObject("objectLayer", (obj) => obj.name === "trolley1");
-let trolley2 = map.findObject("objectLayer", (obj) => obj.name === "trolley2");
-let trolley3 = map.findObject("objectLayer", (obj) => obj.name === "trolley3");
-let chicken1 = map.findObject("objectLayer", (obj) => obj.name === "chicken1");
-let chicken2 = map.findObject("objectLayer", (obj) => obj.name === "chicken2");
-let fish1 = map.findObject("objectLayer", (obj) => obj.name === "fish1");
-let fish2 = map.findObject("objectLayer", (obj) => obj.name === "fish2");
-let heart1 = map.findObject("objectLayer", (obj) => obj.name === "heart1");
-let heart2 = map.findObject("objectLayer", (obj) => obj.name === "heart2");
+    // load checklist layer
+    let trolley1 = map.findObject("objectLayer", (obj) => obj.name === "trolley1");
+    let trolley2 = map.findObject("objectLayer", (obj) => obj.name === "trolley2");
+    let trolley3 = map.findObject("objectLayer", (obj) => obj.name === "trolley3");
+    let chicken1 = map.findObject("objectLayer", (obj) => obj.name === "chicken1");
+    let chicken2 = map.findObject("objectLayer", (obj) => obj.name === "chicken2");
+    let fish1 = map.findObject("objectLayer", (obj) => obj.name === "fish1");
+    let fish2 = map.findObject("objectLayer", (obj) => obj.name === "fish2");
+    let heart1 = map.findObject("objectLayer", (obj) => obj.name === "heart1");
+    let heart2 = map.findObject("objectLayer", (obj) => obj.name === "heart2");
 
-// Define your items with objectLayer
-this.enemy1 = this.physics.add.sprite(trolley1.x, trolley1.y, "trolley")
-this.enemy2 = this.physics.add.sprite(trolley2.x, trolley2.y, "trolley")
-this.enemy3 = this.physics.add.sprite(trolley3.x, trolley3.y, "trolley")
-this.enemy4 = this.physics.add.sprite(chicken1.x, chicken1.y, "chicken")
-this.enemy5 = this.physics.add.sprite(chicken2.x, chicken2.y, "chicken")
-this.enemy6 = this.physics.add.sprite(fish1.x, fish1.y, "fish")
-this.enemy7 = this.physics.add.sprite(fish2.x, fish2.y, "fish")
-this.enemy8 = this.physics.add.sprite(heart1.x, heart1.y, "heart")
-this.enemy9 = this.physics.add.sprite(heart2.x, heart2.y, "heart")
+    // Define your items with objectLayer
+    this.trolley1 = this.physics.add.sprite(trolley1.x, trolley1.y, "trolleyimg")
+    this.trolley2 = this.physics.add.sprite(trolley2.x, trolley2.y, "trolleyimg")
+    this.trolley3 = this.physics.add.sprite(trolley3.x, trolley3.y, "trolleyimg")
+    this.chicken1 = this.physics.add.sprite(chicken1.x, chicken1.y, "chickenimg")
+    this.chicken2 = this.physics.add.sprite(chicken2.x, chicken2.y, "chickenimg")
+    this.fish1 = this.physics.add.sprite(fish1.x, fish1.y, "fishimg")
+    this.fish2 = this.physics.add.sprite(fish2.x, fish2.y, "fishimg")
+    this.heart1 = this.physics.add.sprite(heart1.x, heart1.y, "heartimg")
+    this.heart2 = this.physics.add.sprite(heart2.x, heart2.y, "heartimg")
 
     // create the arrow keys
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -160,8 +170,12 @@ this.enemy9 = this.physics.add.sprite(heart2.x, heart2.y, "heart")
     this.physics.add.collider(this.player, this.Store3Layer)
 
 
-
+    // camera follow player
     //this.cameras.main.startFollow(this.player);
+    this.physics.add.overlap(this.player, [this.chicken1, this.chicken2], this.collectchicken, null, this);
+    this.physics.add.overlap(this.player, [this.fish1, this.fish2], this.collectfish, null, this);
+    this.physics.add.overlap(this.player, [this.heart1, this.heart2], this.collectheart, null, this);
+
   } /////////////////// end of create //////////////////////////////
 
   update() {
@@ -193,11 +207,68 @@ this.enemy9 = this.physics.add.sprite(heart2.x, heart2.y, "heart")
 
     }
   }
+/////////////////// end of update////////////////
 
-  //update() {} /////////////////// end of update //////////////////////////////
- // Function to jump to room1
- level3(player, tile) {
-  console.log("level3 function");
-  this.scene.start("level3",);
+
+  collectchicken(player, item) {
+    console.log("collectchicken");
+    //this.cameras.main.shake(200);
+    window.chicken++
+    item.disableBody(true, true); // remove fire
+    return false;
+  }
+
+  collectfish(player, item) {
+    console.log("collectfish");
+    //this.cameras.main.shake(200);
+    window.fish++
+    item.disableBody(true, true); // remove fire
+    return false;
+
+  }
+
+
+
+collectheart(player, item) {
+  console.log("collectheart");
+  //this.cameras.main.shake(200);
+  window.fish++
+  item.disableBody(true, true); // remove fire
+  return false;
+
 }
+
+  // call this function when overlap
+  collectchicken(player, item) {
+    console.log("collectchicken")
+    this.chicken.play()
+    // this.cameras.main.shake(50) // 500ms
+    item.disableBody(true, true)
+    window.item1 = 1
+    return false;
+  }
+
+    collectfish(player, item) {
+      console.log("collectfish")
+      this.fish.play()
+      // this.cameras.main.shake(50) // 500ms
+      item.disableBody(true, true)
+      window.item1 = 1
+      return false;
+    }
+
+  collectheart(player, item) {
+    console.log("collectheart")
+    this.heart.play()
+    // this.cameras.main.shake(50) // 500ms
+    item.disableBody(true, true)
+    window.item1 = 1
+    return false;
+  }
+
+  // Function to jump to room1
+  level3(player, tile) {
+    console.log("level3 function");
+    this.scene.start("level3",);
+  }
 } //////////// end of class world ////////////////////////
