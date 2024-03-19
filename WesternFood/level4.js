@@ -131,7 +131,6 @@ class level4 extends Phaser.Scene {
         this.skeleton6 = this.physics.add.sprite(skeleton6.x, skeleton6.y, "skeletonimg")
         this.skeleton7 = this.physics.add.sprite(skeleton7.x, skeleton7.y, "skeletonimg")
         this.skeleton8 = this.physics.add.sprite(skeleton8.x, skeleton8.y, "skeletonimg")
-        this.skeleton9 = this.physics.add.sprite(skeleton9.x, skeleton9.y, "skeletonimg")
 
     // create the arrow keys
     this.cursors = this.input.keyboard.createCursorKeys();
