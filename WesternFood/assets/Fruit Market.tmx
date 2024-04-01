@@ -68,7 +68,7 @@
   <object id="2" name="fruit8" x="1108" y="734">
    <point/>
   </object>
-  <object id="3" name="fruit7" x="816" y="614">
+  <object id="3" name="fruit7" x="834" y="572">
    <point/>
   </object>
   <object id="4" name="fruit6" x="1044" y="1056">
@@ -77,13 +77,13 @@
   <object id="5" name="fruit5" x="66" y="1066">
    <point/>
   </object>
-  <object id="8" name="skeleton8" x="1020" y="608">
+  <object id="8" name="skeleton8" x="1022" y="582">
    <point/>
   </object>
   <object id="9" name="skeleton7" x="576" y="664">
    <point/>
   </object>
-  <object id="11" name="trolley2" x="582" y="362">
+  <object id="11" name="trolley2" x="192" y="346">
    <point/>
   </object>
   <object id="12" name="skeleton6" x="398" y="772">
@@ -107,10 +107,10 @@
   <object id="18" name="fruit1" x="1218" y="296">
    <point/>
   </object>
-  <object id="19" name="skeleton3" x="150" y="928">
+  <object id="19" name="skeleton3" x="78" y="884">
    <point/>
   </object>
-  <object id="20" name="trolley1" x="672" y="878">
+  <object id="20" name="trolley1" x="932" y="870">
    <point/>
   </object>
   <object id="21" name="skeleton2" x="66" y="422">

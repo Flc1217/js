@@ -62,55 +62,52 @@
   </data>
  </layer>
  <objectgroup id="10" name="objectLayer">
-  <object id="2" name="food7" x="602.667" y="280">
+  <object id="2" name="vege7" x="602.667" y="280">
    <point/>
   </object>
-  <object id="3" name="food6" x="1209.33" y="424">
+  <object id="3" name="vege6" x="1209.33" y="424">
    <point/>
   </object>
-  <object id="4" name="food5" x="768" y="662.667">
+  <object id="4" name="vege5" x="768" y="662.667">
    <point/>
   </object>
-  <object id="5" name="food4" x="225.333" y="748">
+  <object id="5" name="vege4" x="225.333" y="748">
    <point/>
   </object>
-  <object id="6" name="heart3" x="53.3333" y="1044">
+  <object id="6" name="vege9" x="54.3333" y="1068">
    <point/>
   </object>
-  <object id="7" name="food3" x="240" y="374.667">
+  <object id="7" name="vege3" x="240" y="374.667">
    <point/>
   </object>
-  <object id="8" name="heart2" x="636" y="858.667">
+  <object id="8" name="vege8" x="636" y="858.667">
    <point/>
   </object>
-  <object id="9" name="food2" x="1152" y="918.667">
+  <object id="9" name="vege2" x="1152" y="918.667">
    <point/>
   </object>
   <object id="10" name="heart1" x="1024" y="506.667">
    <point/>
   </object>
-  <object id="11" name="food1" x="521.333" y="502.667">
+  <object id="11" name="vege1" x="521.333" y="502.667">
    <point/>
   </object>
-  <object id="13" name="trolley7" x="542.667" y="350.667">
+  <object id="13" name="trolley7" x="94.667" y="362.167">
    <point/>
   </object>
-  <object id="14" name="trolley6" x="766.667" y="506.667">
+  <object id="14" name="trolley6" x="1050.67" y="508.667">
    <point/>
   </object>
-  <object id="15" name="trolley5" x="928" y="861.333">
+  <object id="15" name="trolley5" x="1119.33" y="871.666">
    <point/>
   </object>
-  <object id="16" name="trolley4" x="989.333" y="665.333">
+  <object id="17" name="trolley3" x="223.834" y="655.834">
    <point/>
   </object>
-  <object id="17" name="trolley3" x="322.667" y="666.667">
+  <object id="18" name="trolley2" x="1215.75" y="387.833">
    <point/>
   </object>
-  <object id="18" name="trolley2" x="1216" y="645.333">
-   <point/>
-  </object>
-  <object id="19" name="trolley1" x="64" y="613.333">
+  <object id="19" name="trolley1" x="64" y="869.333">
    <point/>
   </object>
  </objectgroup>

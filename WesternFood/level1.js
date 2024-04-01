@@ -20,11 +20,12 @@ class level1 extends Phaser.Scene {
     this.load.image("marketimg", "assets/Market_1.png");
     this.load.image("miscimg", "assets/misc_atlas.png");
     this.load.image("pipoyaimg", "assets/pipoya.png");
+    this.load.image('life', 'assets/heart2.png', { frameWidth: 64, frameHeight: 64 });
 
     this.load.audio("collectmusic", "assets/collectmusic.wav");
 
 
-    this.load.image('checklistimg', 'assets/checklist.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.spritesheet('checklistimg', 'assets/checklist.png', { frameWidth: 28, frameHeight: 23 });
 
 
     this.load.spritesheet('gen', 'assets/gen.png', { frameWidth: 64, frameHeight: 64 });
@@ -35,9 +36,10 @@ class level1 extends Phaser.Scene {
   create() {
     console.log("level1");
 
+
     // this.checklist1 = this.sound.add("collectmusic");
     this.checklist = this.sound.add("collectmusic");
-
+    
     //Step 3 - Create the map from main
     let map = this.make.tilemap({ key: "level1" });
 
@@ -79,6 +81,12 @@ class level1 extends Phaser.Scene {
     // Add main player here with physics.add.sprite
 
     // Add time event / movement here
+    this.anims.create({
+      key: 'checklistAnim', // Unique identifier for the animation
+      frames: this.anims.generateFrameNumbers('checklistimg', { start: 0, end: 2 }), // Frame numbers or array of frame numbers
+      frameRate: 2, // Number of frames per second
+      repeat: -1 // -1 for infinite loop, or set to a positive integer for a finite loop
+    });
 
     // get the tileIndex number in json, +1
     //mapLayer.setTileIndexCallback(11, this.room1, this);
@@ -95,13 +103,15 @@ class level1 extends Phaser.Scene {
     let checklist4 = map.findObject("objectLayer", (obj) => obj.name === "checklist4");
 
     // Define your items with objectLayer
-    this.checklist1 = this.physics.add.sprite(checklist1.x, checklist1.y, "checklistimg")
-    this.checklist2 = this.physics.add.sprite(checklist2.x, checklist2.y, "checklistimg")
-    this.checklist3 = this.physics.add.sprite(checklist3.x, checklist3.y, "checklistimg")
-    this.checklist4 = this.physics.add.sprite(checklist4.x, checklist4.y, "checklistimg")
+    this.checklist1 = this.physics.add.sprite(checklist1.x, checklist1.y, "checklistimg").play("checklistAnim")
+    this.checklist2 = this.physics.add.sprite(checklist2.x, checklist2.y, "checklistimg").play("checklistAnim")
+    this.checklist3 = this.physics.add.sprite(checklist3.x, checklist3.y, "checklistimg").play("checklistAnim")
+    this.checklist4 = this.physics.add.sprite(checklist4.x, checklist4.y, "checklistimg").play("checklistAnim")
+
+
 
     // When object overlap with player, call the this.collectFire function
-
+    // this.physics.add.overlap(this.player, [this.checklist1, this.checklist2, this.checklist3, this.checklist4], this.collectchecklist, null, this);
 
 
     // create the arrow keys
@@ -172,12 +182,45 @@ class level1 extends Phaser.Scene {
     });
 
 
+
     this.player.body
       .setSize(this.player.width * 0.3, this.player.height * 0.3)
       .setOffset(22, 40)
 
+
     // create the arrow keys
     this.cursors = this.input.keyboard.createCursorKeys();
+
+    //hearts
+    this.life1 = this.add
+      .image(50, 40, "life")
+      .setScale(1.5)
+      .setScrollFactor(0)
+      .setVisible(false);
+    this.life2 = this.add
+      .image(100, 40, "life")
+      .setScale(1.5)
+      .setScrollFactor(0)
+      .setVisible(false);
+    this.life3 = this.add
+      .image(150, 40, "life")
+      .setScale(1.5)
+      .setScrollFactor(0)
+      .setVisible(false);
+
+    if (window.heart >= 3) {
+      this.life1.setVisible(true);
+      this.life2.setVisible(true);
+      this.life3.setVisible(true);
+    }
+    else if (window.heart == 2) {
+      this.life1.setVisible(true);
+      this.life2.setVisible(true);
+    }
+    else if (window.heart == 1) {
+      this.life1.setVisible(true);
+    }
+
 
     // // camera follow player
     this.cameras.main.startFollow(this.player);
@@ -236,38 +279,55 @@ class level1 extends Phaser.Scene {
     if (
       this.player.x > 140 &&
       this.player.x < 177 &&
-      this.player.y < 190
+      this.player.y < 190 &&
+      window.checklist>3
 
     ) {
-      console.log("level2");
-      this.level2();
+      console.log("listlevel2");
+      this.listlevel2();
 
     }
   }
 
-  collectchecklist(player, item) {
-    console.log("collectchecklist");
-    //this.cameras.main.shake(200);
-    window.checklist++
-    item.disableBody(true, true); // remove fire
-    return false;
 
-  }
 
   // call this function when overlap
   collectchecklist(player, item) {
-    console.log("collectchecklist")
     this.checklist.play()
+    window.checklist++
     // this.cameras.main.shake(100) // 500ms
     item.disableBody(true, true)
     window.item1 = 1
     return false;
   }
 
+
   //update() {} /////////////////// end of update //////////////////////////////
   // Function to jump to room1
-  level2(player, tile) {
-    console.log("level2 function");
-    this.scene.start("level2",);
+  listlevel2(player, tile) {
+    console.log("listlevel2 function");
+    this.scene.start("listlevel2",);
   }
+
+  minusLife(player, item) {
+    console.log("minus life");
+
+
+      // deduct live
+      window.heart++;
+      console.log("heart2img", window.heart);
+      if (window.heart > 3){
+          window.heart = 3;
+      }
+  
+      if (window.heart == 3) {
+        this.life3.setVisible(true);
+      } 
+       else if (window.heart == 2) {
+        this.life2.setVisible(true);
+      } 
+       else if (window.heart == 1) {
+        this.life1.setVisible(true);
+      }
 } //////////// end of class world ////////////////////////
+}

@@ -14,13 +14,15 @@ let config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
       },
-    scene: [ level1 , level2 , level3 , level4]
+    scene: [ intro , storyline , gameplay , rules , gameover , listlevel1 , level1 , listlevel2 , level2 , listlevel3 , level3 , listlevel4 , level4 , victory]
 
 };
 
 let game = new Phaser.Game(config);
-window.checklist=0
-window.chicken=0
-window.fish=0
-window.heart=0
-window.fruit=0
+window.checklist = 4;
+window.chicken = 2;
+window.fish = 1
+window.heart = 3
+window.life = 0
+window.fruit = 6
+window.vege = 5
