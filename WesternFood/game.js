@@ -19,10 +19,10 @@ let config = {
 };
 
 let game = new Phaser.Game(config);
-window.checklist = 4;
-window.chicken = 2;
-window.fish = 1
-window.heart = 3
-window.life = 0
-window.fruit = 6
-window.vege = 5
+window.checklist = 0;
+window.chicken = 0;
+window.fish = 0;
+window.heart = 3;
+window.life = 0;
+window.fruit = 6;
+window.vege = 4;

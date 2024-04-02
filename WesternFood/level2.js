@@ -32,6 +32,7 @@ class level2 extends Phaser.Scene {
 
     this.load.audio("collectmusic", "assets/collectmusic.wav");
 
+
   }
 
   create() {
@@ -43,7 +44,7 @@ class level2 extends Phaser.Scene {
     this.chicken = this.sound.add("collectmusic");
     this.fish = this.sound.add("collectmusic");
     this.heart = this.sound.add("collectmusic");
-
+ 
 
 
     //Step 3 - Create the map from main
@@ -296,6 +297,7 @@ class level2 extends Phaser.Scene {
       this.minusLife,
       null,
       this
+      
     );
     this.physics.add.overlap(
       this.player,
@@ -353,7 +355,7 @@ class level2 extends Phaser.Scene {
       this.player.x > 503 &&
       this.player.x < 591 &&
       this.player.y > 1050 &&
-      window.chicken>1
+      window.chicken > 1
       
       
       ) {
@@ -402,6 +404,7 @@ class level2 extends Phaser.Scene {
   collectchicken(player, item) {
     console.log("collectchicken")
     this.chicken.play()
+    window.chicken++
     // this.cameras.main.shake(50) // 500ms
     item.disableBody(true, true)
     window.item1 = 1
@@ -411,6 +414,7 @@ class level2 extends Phaser.Scene {
   collectfish(player, item) {
     console.log("collectfish")
     this.fish.play()
+    window.fish++
     // this.cameras.main.shake(50) // 500ms
     item.disableBody(true, true)
     window.item1 = 1
@@ -480,8 +484,6 @@ class level2 extends Phaser.Scene {
   hittrolley(hit, trolley) {
     console.log("hit trolley");
 
-    this.hitSnd.play();
-
     hit.disableBody(true, true);
     trolley.disableBody(true, true);
 
@@ -534,8 +536,7 @@ class level2 extends Phaser.Scene {
 }
   hitfish(hit, fish) {
     console.log("hit fish");
-
-    this.hitSnd.play();
+    
 
     hit.disableBody(true, true);
     fish.disableBody(true, true);

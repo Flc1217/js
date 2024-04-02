@@ -326,7 +326,7 @@ class level4 extends Phaser.Scene {
     this.physics.add.collider(this.player, this.Store4Layer)
 
 // camera follow player
-this.physics.add.overlap(this.player, [this.fruit1, this.fruit2, this.fruit3,this.fruit4,this.fruit5,this.fruit6,this.fruit7,this.fruit8,this.fruit9], this.collectfruit, null, this);
+this.physics.add.overlap(this.player, [this.fruit2, this.fruit3,this.fruit4,this.fruit5,this.fruit7,this.fruit9], this.collectfruit, null, this);
 this.physics.add.overlap(this.player, [this.heart1, this.heart2], this.collectheart, null, this);
 
 this.physics.add.overlap(
@@ -403,6 +403,30 @@ this.physics.add.overlap(
   null,
   this
 );
+
+this.physics.add.overlap(
+  this.player,
+  this.fruit1,
+  this.minusLife,
+  null,
+  this
+);
+
+this.physics.add.overlap(
+  this.player,
+  this.fruit6,
+  this.minusLife,
+  null,
+  this
+);
+
+this.physics.add.overlap(
+  this.player,
+  this.fruit8,
+  this.minusLife,
+  null,
+  this
+);
     //this.cameras.main.startFollow(this.player);
     this.physics.add.overlap(this.player, this.checklist, this.collectchecklist, null, this);
 
@@ -428,7 +452,8 @@ this.physics.add.overlap(
     if (
       this.player.x > 513 &&
       this.player.x < 601 &&
-      this.player.y > 1060 
+      this.player.y > 1060 &&
+      window.fruit > 5
       
     ) {
       console.log("victory");
@@ -447,7 +472,7 @@ this.physics.add.overlap(
   collectheart(player, item) {
     console.log("collectheart");
     //this.cameras.main.shake(200);
-    window.fish++
+    window.heart++
     item.disableBody(true, true); // remove heart
     return false;
   
@@ -456,7 +481,7 @@ this.physics.add.overlap(
   collectfruit(player, item) {
     console.log("collectfruit");
     //this.cameras.main.shake(200);
-    window.fish++
+    window.fruit++
     item.disableBody(true, true); // remove heart
     return false;
   
@@ -467,6 +492,7 @@ this.physics.add.overlap(
 collectfruit(player, item) {
   console.log("collectfruit")
   this.fruit.play()
+  window.fruit++
   // this.cameras.main.shake(50) // 500ms
   item.disableBody(true, true)
   window.item1 = 1
@@ -570,7 +596,7 @@ collectheart(player, item) {
     }
   }
 
-  hitskeleton(hit, trolley) {
+  hitskeleton(hit, skeleton) {
     console.log("hit skeleton");
 
     this.hitSnd.play();
@@ -580,6 +606,49 @@ collectheart(player, item) {
 
     // deduct zombie
     window.skeleton--;
+  }
+
+  
+  minusLife(player, fruit) {
+    console.log("minus life");
+
+    // deduct live
+    window.heart--;
+//     // sound
+//  this.hurtSnd.play();
+
+    // shake screen
+    this.cameras.main.shake(300);
+
+    // deduct zombie
+    window.fruit--;
+
+    // remove the zombie
+    fruit.disableBody(true, true);
+
+    if (window.heart == 2) {
+      this.life3.setVisible(false);
+    } else if (window.heart == 1) {
+      this.life2.setVisible(false);
+    } else if (window.heart == 0) {
+      this.life1.setVisible(false);
+
+      console.log("game over");
+      this.scene.stop("level4");
+      this.scene.start("gameover");
+    }
+  }
+
+  hitfruit(hit, fruit) {
+    console.log("hit fruit");
+
+    this.hitSnd.play();
+
+    hit.disableBody(true, true);
+    fruit.disableBody(true, true);
+
+    // deduct zombie
+    window.fruit--;
   }
   //update() {} /////////////////// end of update //////////////////////////////
 

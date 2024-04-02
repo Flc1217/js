@@ -401,6 +401,30 @@ this.tweens.add({
       null,
       this
     );
+
+    this.physics.add.overlap(
+      this.player,
+      this.vege1,
+      this.minusLife,
+      null,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.vege2,
+      this.minusLife,
+      null,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.vege5,
+      this.minusLife,
+      null,
+      this
+    );
     
     //this.cameras.main.startFollow(this.player);
   } /////////////////// end of create //////////////////////////////
@@ -427,7 +451,7 @@ this.tweens.add({
       this.player.x > 503 &&
       this.player.x < 591 &&
       this.player.y > 1050 &&
-      window.vege>4
+      window.vege > 3
     ) {
       console.log("listlevel4");
       this.listlevel4();
@@ -450,7 +474,7 @@ this.tweens.add({
 collectheart(player, item) {
   console.log("collectheart");
   //this.cameras.main.shake(200);
-  window.fish++
+  window.heart++
   item.disableBody(true, true); // remove heart
   return false;
 
@@ -461,6 +485,7 @@ collectheart(player, item) {
 collectvege(player, item) {
   console.log("collectvege")
   this.vege.play()
+  window.vege++
   // this.cameras.main.shake(50) // 500ms
   item.disableBody(true, true)
   window.item1 = 1
@@ -571,7 +596,7 @@ collectvege(player, item) {
     window.vege--;
 
     // remove the zombie
-    vege.disableBody(false, false);
+    vege.disableBody(true, true);
 
     if (window.heart == 2) {
       this.life3.setVisible(false);

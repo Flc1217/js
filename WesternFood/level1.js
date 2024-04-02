@@ -280,7 +280,7 @@ class level1 extends Phaser.Scene {
       this.player.x > 140 &&
       this.player.x < 177 &&
       this.player.y < 190 &&
-      window.checklist>3
+      window.checklist > 3
 
     ) {
       console.log("listlevel2");

@@ -7,14 +7,14 @@ class gameover extends Phaser.Scene {
   
     preload() {
         this.load.image('gameover','assets/gameover.png');
-        // this.load.audio("gameoversound", "assets/gameover.mp3");
+        this.load.audio("gameoversound", "assets/gameover.wav");
     
     }
   
     create () {
       console.log("game over");
   
-    //   this.gameoverSnd = this.sound.add("gameoversound").setVolume(0.4);
+      this.gameoverSnd = this.sound.add("gameoversound").setVolume(0.4);
   
         this.add.image(0, 0, 'gameover').setOrigin(0, 0);
   
@@ -28,7 +28,7 @@ class gameover extends Phaser.Scene {
             this.scene.start("listlevel1");
         }, this);
   
-        // this.gameoverSnd.play();
+        this.gameoverSnd.play();
   
 }
 

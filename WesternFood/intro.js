@@ -9,13 +9,13 @@ class intro extends Phaser.Scene {
         // Step 1, load JSON
         // simple Main Page image
         this.load.image('introimg', 'assets/intro.png');
-        // this.load.audio("bgm", "assets/song.mp3");
+        this.load.audio("backgroundmusic", "assets/backgroundmusic.mp3");
 
     }
 
     create() {
-        // this.music = this.sound.add("bgm", { loop: true }).setVolume(0.4);
-        // this.music.play();
+        this.music = this.sound.add("backgroundmusic", { loop: true }).setVolume(0.4);
+        this.music.play();
         this.add.image(0, 0, 'introimg').setOrigin(0, 0);
 
         var spaceDown = this.input.keyboard.addKey('SPACE');
